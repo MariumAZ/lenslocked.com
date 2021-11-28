@@ -1,1 +1,7 @@
-# lenslocked.com
+# Lens Locked 
+
+Photo gallery application written in Go. Enjoy ! :) 
+
+
+
+
