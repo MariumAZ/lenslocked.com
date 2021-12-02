@@ -35,7 +35,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func contact(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-type", "text/html")
-	fmt.Fprint(w, "To get in touch please send an email to <a href=\"mailto:myriam.azzouz@holbertonschool.com\"> support </a>.")
+	tplpath := filepath.Join("templates", "contact.gohtml")
+	executeTemplate(w, tplpath)
 }
 
 func faq(w http.ResponseWriter, r *http.Request){
@@ -47,10 +48,7 @@ func notfound(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(http.StatusNotFound)
 	w.Header().Set("Content-type", "text/html")
 	fmt.Fprint(w, "OOps 404 ! ")
-
 }
-
-
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
