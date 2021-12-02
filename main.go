@@ -2,14 +2,35 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
+	"path/filepath"
+    "log"
 	"github.com/gorilla/mux"
 )
 
+// we could have passed an io.writer but http.error later on 
+// excpects an http.response writer 
+func executeTemplate(w http.ResponseWriter, filepath string) {
+	w.Header().Set("Content-type", "text/html")
+	tmp, err := template.ParseFiles(filepath)
+	if err != nil {
+		log.Printf("parsing template : %v", err)
+		http.Error(w, "there is an error while parsing html", http.StatusInternalServerError)
+	}
+	err = tmp.Execute(w, nil) // writing the output to w 
+	if err != nil {
+		log.Printf("executing template: %v", err)
+		http.Error(w, "there ws an error executing the template", http.StatusInternalServerError)
+		return
+
+	}
+}
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "text/html")
-	fmt.Fprint(w, "<h1>Welcome HOME!</h1>")
+	tplpath := filepath.Join("templates", "home.gohtml")
+	executeTemplate(w, tplpath)
 }	
 
 func contact(w http.ResponseWriter, r *http.Request){

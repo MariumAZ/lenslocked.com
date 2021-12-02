@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"os"
+	"github.com/go-chi/chi/v5"
 )
 type User struct {
 	Name string
@@ -29,6 +30,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	
 
 }
