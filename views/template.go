@@ -3,6 +3,7 @@ package views
 import (
 	"fmt"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 )
@@ -15,9 +16,15 @@ type Template struct {
 
 }
 
-func Parse(filepath string) (Template, error) {
-	tpl, err := template.ParseFiles(filepath)
-	//err = tmp.Execute(w, nil) // writing the output to w 
+func Must(t Template, err error) Template {
+	if err != nil {
+		panic(err)
+	}
+	return t
+}
+
+func ParseFS(fs fs.FS, pattern string)(Template, error){
+    tpl, err := template.ParseFS(fs, pattern)
 	if err != nil {
 		return Template{}, fmt.Errorf("parsing template: %w", err)
 	}
@@ -25,6 +32,7 @@ func Parse(filepath string) (Template, error) {
 		HTMLTpl: tpl,
 	}, nil
 }
+
 
 //take sin the data that is going to be rendered 
 // and because that's what template.execute takes in
