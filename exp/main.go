@@ -3,7 +3,6 @@ package main
 import (
 	"html/template"
 	"os"
-	"github.com/go-chi/chi/v5"
 )
 type User struct {
 	Name string

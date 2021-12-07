@@ -2,8 +2,7 @@ package templates
 
 import "embed"
 
-// fs stands for filesystem
-// go:embed *.gohtml
+// go:embed *
 var FS embed.FS
 
 
