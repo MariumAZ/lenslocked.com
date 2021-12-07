@@ -1,3 +1,10 @@
 <h1>FAQ Page</h1>
-<p> Is there a free Version ? Bah Ouii ! 
-</p>
+<ul>
+{{range .}}
+   {{ template "qa" .}}
+{{end}}
+</ul>
+
+{{define "qa"}}
+<li><b>{{.Question}}</b> {{.Answer}}</li>
+{{end}}
