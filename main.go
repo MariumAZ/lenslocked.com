@@ -4,11 +4,12 @@ import (
 	"fmt"
 	_ "log"
 	"net/http"
+	"path/filepath"
+
 	"github.com/go-chi/chi/v5"
 	"lenslocked.com/controllers"
-	_"lenslocked.com/templates"
+	"lenslocked.com/templates"
 	"lenslocked.com/views"
-	"path/filepath"
 )
 
 func notfound(w http.ResponseWriter, r *http.Request){
@@ -20,7 +21,10 @@ func main() {
 	// initialize a router
 	r := chi.NewRouter()
 	//views.Must(views.ParseFS(templates.FS,"home.gohtml"))
-	tpl := views.Must(views.Parse(filepath.Join("templates","home.gohtml")))
+	//tpl := views.Must(views.Parse(filepath.Join("templates","home.gohtml")))
+	//r.Get("/", controllers.StaticHandler(tpl))
+
+	tpl := views.Must(views.ParseFS(templates.FS, "home.gohtml"))
 	r.Get("/", controllers.StaticHandler(tpl))
    
     tpl = views.Must(views.Parse(filepath.Join("templates","Me.gohtml")))
