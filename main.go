@@ -21,6 +21,7 @@ func main() {
 	r := chi.NewRouter()
 	//views.Must(views.ParseFS(templates.FS,"home.gohtml"))
 
+	
 	tpl := views.Must(views.ParseFS(templates.FS,"home.gohtml", "tailwind.gohtml"))
 	r.Get("/", controllers.StaticHandler(tpl))
    
@@ -32,6 +33,9 @@ func main() {
 
 	tpl = views.Must(views.ParseFS(templates.FS,"faq.gohtml", "tailwind.gohtml"))
     r.Get("/faq", controllers.FAQ(tpl))
+
+	tpl = views.Must(views.ParseFS(templates.FS,"signup.gohtml", "tailwind.gohtml"))
+    r.Get("/signup", controllers.StaticHandler(tpl))
 	
 	// the handler function is an actual type
 	r.NotFound(notfound)
